@@ -24,7 +24,7 @@ prompt = "Complete the following: Once upon a time there was a"
 messages = [{"role": "user", "content": prompt}]  
 
 # make completion
-completion = client.chat.completions.create(model=deployment, messages=messages)
+completion = client.chat.completions.create(model=deployment, messages=messages, temperature=0.99, max_tokens=100) #the lower the temperature, the more deterministic the output
 
 # print response
 print(completion.choices[0].message.content)
