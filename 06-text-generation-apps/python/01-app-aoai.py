@@ -6,11 +6,12 @@ from dotenv import load_dotenv
 # load environment variables from .env file
 load_dotenv()
 
+
 # configure Azure OpenAI service client 
 client = AzureOpenAI(
-    azure_endpoint = os.environ["AZURE_OPENAI_GPT4o_API_BASE"], 
-    api_key=os.environ['AZURE_OPENAI_GPT4o_API_KEY'],  
-    api_version = "2024-02-01"  # Updated API version
+    azure_endpoint = os.environ["AZURE_OPENAI_GPT4o_API_BASE"],   # use azure_endpoint
+    api_key = os.environ['AZURE_OPENAI_GPT4o_API_KEY'],
+    api_version = os.environ.get('AZURE_OPENAI_API_VERSION', '2024-02-01')
 )
 
 deployment=os.environ['AZURE_OPENAI_GPT4o_DEPLOYMENT']
@@ -25,6 +26,7 @@ messages = [{"role": "user", "content": prompt}]
 
 # make completion
 completion = client.chat.completions.create(model=deployment, messages=messages, temperature=0.99, max_tokens=100) #the lower the temperature, the more deterministic the output
+
 
 # print response
 print(completion.choices[0].message.content)
